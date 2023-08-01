@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Information CRUD</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            text-align: center;
+        }
+
+        form, ul {
+            margin-bottom: 20px;
+        }
+
+        form label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        form input[type="text"],
+        form input[type="number"] {
+            width: 100%;
+            padding: 5px;
+            margin-bottom: 10px;
+        }
+
+        form input[type="submit"],
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        form input[type="submit"]:hover,
+        button:hover {
+            background-color: #45a049;
+        }
+
+        form input[type="submit"]:active,
+        button:active {
+            background-color: #3e8e41;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            margin-bottom: 20px;
+            border: 1px solid #ddd;
+            padding: 10px;
+            position: relative;
+        }
+
+        .delete-btn {
+            background-color: #f44336;
+        }
+
+        .delete-btn:hover {
+            background-color: #d32f2f;
+        }
+
+        .delete-btn:active {
+            background-color: #b71c1c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Patient Information</h1>
+        <form action="/add" method="POST">
+            <label for="first_name">First Name:</label>
+            <input type="text" name="first_name" required><br>
+
+            <label for="last_name">Last Name:</label>
+            <input type="text" name="last_name" required><br>
+
+            <label for="age">Age:</label>
+            <input type="number" name="age" required><br>
+
+            <label for="address">Address:</label>
+            <input type="text" name="address" required><br>
+
+            <label for="disease">Disease:</label>
+            <input type="text" name="disease" required><br>
+
+            <label for="modifier">Modifier:</label>
+            <input type="text" name="modifier" required><br>
+
+            <label for="payer">Payer:</label>
+            <input type="text" name="payer" required><br>
+
+            <label for="bill_no">BillNo:</label>
+            <input type="number" name="bill_no" required><br>
+
+            <label for="amount_paid">AmountPaid:</label>
+            <input type="number" name="amount_paid" required><br>
+
+            <input type="submit" value="Add Patient">
+        </form>
+
+        <h2>Patients:</h2>
+        <ul>
+            {{range .Patients}}
+            <li>
+                ID: {{.ID}}<br>
+                Name: {{.FirstName}} {{.LastName}}<br>
+                Age: {{.Age}}<br>
+                Address: {{.Address}}<br>
+                Disease: {{.Disease}}<br>
+                Modifier: {{.Modifier}}<br>
+                Payer: {{.Payer}}<br>
+                BillNo: {{.BillNo}}<br>
+                AmountPaid: {{.AmountPaid}}<br>
+
+                <form action="/update/{{.ID}}" method="POST">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" name="first_name" required><br>
+
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" name="last_name" required><br>
+
+                    <label for="age">Age:</label>
+                    <input type="number" name="age" required><br>
+
+                    <label for="address">Address:</label>
+                    <input type="text" name="address" required><br>
+
+                    <label for="disease">Disease:</label>
+                    <input type="text" name="disease" required><br>
+
+                    <label for="modifier">Modifier:</label>
+                    <input type="text" name="modifier" required><br>
+
+                    <label for="payer">Payer:</label>
+                    <input type="text" name="payer" required><br>
+
+                    <label for="bill_no">BillNo:</label>
+                    <input type="number" name="bill_no" required><br>
+
+                    <label for="amount_paid">AmountPaid:</label>
+                    <input type="number" name="amount_paid" required><br>
+
+                    <input type="submit" value="Update">
+                </form>
+
+                <form action="/delete/{{.ID}}" method="GET">
+                    <button class="delete-btn" type="submit">Delete</button>
+                </form>
+            </li>
+            {{end}}
+        </ul>
+    </div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Patient Information</title>
+</head>
+<body>
+    <h1>Patient Information</h1>
+
+    {{if .Error}}
+    <p style="color: red;">Error: {{.Error}}</p>
+    {{end}}
+
+    <form action="/add" method="POST">
+        <label for="patient_name">Patient Name:</label>
+        <input type="text" id="patient_name" name="patient_name" required>
+        <br>
+        <label for="patient_type">Patient Type:</label>
+        <input type="text" id="patient_type" name="patient_type" required>
+        <br>
+        <label for="poc">POC:</label>
+        <input type="text" id="poc" name="poc" required>
+        <br>
+        <label for="plan">Plan:</label>
+        <input type="text" id="plan" name="plan" required>
+        <br>
+        <label for="treatment">Treatment:</label>
+        <input type="text" id="treatment" name="treatment" required>
+        <br>
+        <button type="submit">Add Patient</button>
+    </form>
+
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>ID</th>
+            <th>Patient Name</th>
+            <th>Patient Type</th>
+            <th>POC</th>
+            <th>Plan</th>
+            <th>Treatment</th>
+            <th>Actions</th>
+        </tr>
+        {{range .Patients}}
+        <tr>
+            <td>{{.ID}}</td>
+            <td>{{.PatientName}}</td>
+            <td>{{.PatientType}}</td>
+            <td>{{.POC}}</td>
+            <td>{{.Plan}}</td>
+            <td>{{.Treatment}}</td>
+            <td>
+                <form action="/update/{{.ID}}" method="POST">
+                    <input type="text" name="patient_name" placeholder="Update Name">
+                    <input type="text" name="patient_type" placeholder="Update Type">
+                    <input type="text" name="poc" placeholder="Update POC">
+                    <input type="text" name="plan" placeholder="Update Plan">
+                    <input type="text" name="treatment" placeholder="Update Treatment">
+                    <button type="submit">Update</button>
+                </form>
+                <form action="/delete/{{.ID}}" method="GET">
+                    <button type="submit">Delete</button>
+                </form>
+            </td>
+        </tr>
+        {{end}}
+    </table>
+</body>
+</html>
